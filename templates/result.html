@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}FitBuddy - Your Fitness Plan{% endblock %}
+
+{% block content %}
+
+{% if nutrition_only %}
+
+<section class="card">
+    <h1>🥗 Nutrition Tip</h1>
+
+    <p class="tip-text">
+        {{ nutrition_tip }}
+    </p>
+
+    <a href="/" class="btn btn-primary">
+        ← Create Fitness Plan
+    </a>
+</section>
+
+{% else %}
+
+<section class="result-header">
+    <h1>🎉 Your Personalized Fitness Plan</h1>
+
+    {% if user %}
+    <p>
+        Welcome, <strong>{{ user.name }}</strong>!
+    </p>
+    {% endif %}
+
+    {% if updated %}
+    <div class="success-message">
+        ✅ Your plan has been updated based on your feedback.
+    </div>
+    {% endif %}
+</section>
+
+
+<section class="card">
+
+    <h2>🏋️ {{ plan.workout_plan.title }}</h2>
+
+    <div class="workout-grid">
+
+        {% for day in plan.workout_plan.days %}
+
+        <div class="workout-card">
+
+            <h3>{{ day.day }}</h3>
+
+            <h4>{{ day.workout }}</h4>
+
+            <p>
+                ⏱️ <strong>Duration:</strong>
+                {{ day.duration }}
+            </p>
+
+            {% if day.notes %}
+            <p>
+                📝 {{ day.notes }}
+            </p>
+            {% endif %}
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+
+<section class="card">
+
+    <h2>🥗 Nutrition Tip</h2>
+
+    <p class="tip-text">
+        {{ plan.nutrition_tip }}
+    </p>
+
+</section>
+
+
+<section class="card">
+
+    <h2>😴 Recovery Tip</h2>
+
+    <p class="tip-text">
+        {{ plan.recovery_tip }}
+    </p>
+
+</section>
+
+
+<section class="card feedback-card">
+
+    <h2>💬 Want to Improve Your Plan?</h2>
+
+    <p>
+        Tell FitBuddy what you want to change.
+    </p>
+
+    <form
+        action="/update/{{ record_id }}"
+        method="post"
+    >
+
+        <div class="form-group">
+
+            <label for="feedback">
+                Your Feedback
+            </label>
+
+            <textarea
+                id="feedback"
+                name="feedback"
+                rows="5"
+                maxlength="1000"
+                placeholder="Example: I want more cardio workouts..."
+                required
+            ></textarea>
+
+        </div>
+
+        <button
+            type="submit"
+            class="btn btn-primary"
+        >
+            🔄 Update My Plan
+        </button>
+
+    </form>
+
+</section>
+
+
+<div class="result-actions">
+
+    <a href="/" class="btn btn-secondary">
+        ← Create New Plan
+    </a>
+
+    <a
+        href="/view-all-users"
+        class="btn btn-secondary"
+    >
+        👥 View All Users
+    </a>
+
+</div>
+
+{% endif %}
+
+{% endblock %}

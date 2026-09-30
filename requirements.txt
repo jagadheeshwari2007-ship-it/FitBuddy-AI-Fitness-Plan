@@ -1,0 +1,10 @@
+fastapi==0.115.6
+uvicorn[standard]
+jinja2
+sqlalchemy
+python-multipart
+pydantic-settings
+google-genai
+python-dotenv
+pytest
+httpx

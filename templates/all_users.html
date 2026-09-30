@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+
+{% block title %}FitBuddy - All Users{% endblock %}
+
+{% block content %}
+
+<section class="result-header">
+    <h1>👥 All Users</h1>
+    <p>Previously generated fitness plans.</p>
+</section>
+
+<section class="card">
+
+    {% if users %}
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Weight</th>
+                    <th>Goal</th>
+                    <th>Intensity</th>
+                    <th>Created At</th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+                {% for user in users %}
+
+                <tr>
+                    <td>{{ user.id }}</td>
+                    <td>{{ user.user_id }}</td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.age }}</td>
+                    <td>{{ user.weight }} kg</td>
+                    <td>{{ user.goal }}</td>
+                    <td>{{ user.intensity }}</td>
+                    <td>{{ user.created_at.strftime("%Y-%m-%d %H:%M") }}</td>
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <div class="empty-state">
+        <h2>No Users Yet</h2>
+        <p>
+            Generate your first fitness plan to see it here.
+        </p>
+
+        <a href="/" class="btn btn-primary">
+            🚀 Create Fitness Plan
+        </a>
+    </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}
